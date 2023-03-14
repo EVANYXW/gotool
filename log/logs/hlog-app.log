@@ -1,0 +1,1 @@
+{"level":"error","ts":1674403405.055563,"caller":"cmd/main.go:15","msg":"START","stacktrace":"main.main\n\t/Users/xuweiyi/go/src/demo/tools/elog/cmd/main.go:15\nruntime.main\n\t/usr/local/go/src/runtime/proc.go:250"}

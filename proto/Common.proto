@@ -1,0 +1,259 @@
+syntax = "proto3";
+option go_package = "./Msg;Msg";
+enum ErrorCode
+{
+	ErrorCode_Succeed 			= 0;
+	ErrorCode_KickPlayer        = 1;		//踢出维护机台中的玩家
+	ErrorCode_JoinLobbyFailed 	= 100;		//加入大厅失败
+	ErrorCode_CreateGameFailed 	= 101;		//创建游戏失败
+	ErrorCode_JoinGameFailed 	= 102;		//加入游戏失败
+	ErrorCode_LoadRoleFailed 	= 103;		//加载角色失败
+	ErrorCode_LoginFailed  		= 200;		// 登录失败
+	ErrorCode_Binded			= 201;		//被其他账号绑定
+	ErrorCode_BindCurAcount 	= 202;		//已经绑定当前FB
+	ErrorCode_ServerConfigNoExist = 203;	// 配置不存在
+	ErrorCode_HadJoinLobby 		= 204;		//账号已登陆
+	ErrorCode_GameMaintenance 	= 205;		//游戏维护中
+	ErrorCode_VersionError		= 206;		//版本号不匹配
+	ErrorCode_Invaild_Role		= 207;		//无效用户
+	ErrorCode_Had_Enter_Game	= 208;		//已进入机台
+	ErrorCode_Leave_Error		= 209;		//离开机台错误
+
+	ErrorCode_Invaild_PlayerSession	= 210;	//无效用户
+	ErrorCode_Empyt_Account		= 211;		//账号为空
+	
+	//300服务器内部错误
+	ErrorCode_ResourceFailed	= 300; //资源更新失败
+
+	//400 游戏中
+	ErrorCode_UseTreasureCardFailed = 400; //使用低保卡失败
+
+	//AD Reward
+	ErrorCode_CollectAdReward_ErrorOrder	= 401;		//等级错误
+	ErrorCode_CollectAdReward_NotCompleted	= 402;		//任务伟完成
+	ErrorCode_CollectAdReward_Collected		= 403;		//奖励已领取
+	
+	//Level challenge
+	ErrorCode_Mission_ID_Error		= 500;		//任务ID错误
+	ErrorCode_Mission_Error			= 501;		//任务不存在
+	ErrorCode_Mission_Not_Completed	= 502;		//任务未完成
+	ErrorCode_Reward_Collected		= 503;		//奖励已领取
+	
+	//600大厅功能
+	ErrorCode_Daily_TimeFew = 600; //领取间隔时间不足
+	ErrorCode_Daily_GetReWardFew = 601; //每日领取次数不足
+	//700大厅系统
+	ErrorCode_Daily_MissionValueFew = 701;
+	
+	//800 email
+	
+	ErrorCode_DiamondFew = 800;		//钻石不足
+	//900 mission
+	ErrorCode_AlreadyGet = 900;		//已经领取
+	ErrorCode_PointFew   = 901;		//点数不足
+	//7day
+	ErrorCode_AlreadySign =1000;
+	ErrorCode_TimeOverdue = 1001;
+	
+	//challege
+	ErrorCode_LevelNoEnough = 1100;	//等级不够
+	
+	//extendmission
+	ErrorCode_AlreadyGetReward = 1200; //已经领取
+	ErrorCode_ConditionNoReach = 1201; //条件未达到
+	
+	//订单无效
+	ErrorCode_InvaildAccessToken = 1298;	//无效Token
+	ErrorCode_PurchaseInvaildState = 1299;	//无效状态
+	ErrorCode_InvaildOrder	= 1300;		
+	ErrorCode_AlreadyConsumption =1301;
+	ErrorCode_AlreadyHandle = 1302;
+
+	//deal
+	ErrorCode_Deal_Overdue		=1400; 	//有效时间过期
+
+	//链接赠送金币
+	ErrorCode_LinkGive_Invaild_Token = 1401; 			//token无效
+	ErrorCode_LinkGive_Overdue	= 1402; 				//活动过期
+	ErrorCode_LinkGive_Invaild_RewardsType	= 1403; 	//奖励类型错误
+	ErrorCode_LinkGive_times_over	= 1404; 			//领奖次数用完
+	ErrorCode_LinkGive_Rewarded	= 1405; 				//已经领奖
+	ErrorCode_LinkGive_Unkonwn_Error = 1406; 			//异常
+
+	//GloryChallenge
+	ErrorCode_GC_Invaild_Mission = 1501;				//任务不存在
+	ErrorCode_GC_Mission_Not_Complete = 1502;			//任务未完成
+	ErrorCode_GC_Not_Enough_Gem = 1503;					//钻石不足
+	ErrorCode_GC_Data_Unusual = 1504;					//数据异常
+	ErrorCode_GC_Invaild_Level = 1505;					//等级不够
+	ErrorCode_GC_Invaild_Point = 1506;					//点数不够
+	ErrorCode_GC_Invaild_Config = 1507;					//配置错误
+	ErrorCode_GC_Reward_Collected = 1508;				//奖励已领取
+
+	//WinnerPass
+	ErrorCode_WP_Invaild_Activity = 1601;				//活动未开启
+	ErrorCode_WP_Not_UnLock = 1602;						//奖励未解锁
+	ErrorCode_WP_Not_Purchase = 1603;					//未开通付费奖励
+	ErrorCode_WP_Have_Got_Prize = 1604;					//已领取
+	ErrorCode_WP_Invaild_Prize = 1605;					//无效奖励
+
+	//pre-register
+	ErrorCode_PR_Have_Got_Reward = 1701;				//已领取
+	ErrorCode_PR_Data_Unusual = 1702;					//数据异常
+
+	//mini game 
+	ErrorCode_HeartBonus_Not_Exist = 1801;				//道具不存在
+	ErrorCode_HeartBonus_Error_Type = 1802;				//类型不匹配
+	ErrorCode_HeartBonus_Not_Enough_Times = 1803;		//次数不足
+	ErrorCode_HeartBonus_Reward_Not_Exist = 1804;		//奖品不存在
+	
+	//ios recharge error code
+	ErrorCode_IOS_ERROR_JSON	= 21000;				//App Store不能读取你提供的JSON对象
+	ErrorCode_IOS_ERROR_RECEIPTDATA	= 21002;				//receipt-data域的数据有问题
+	ErrorCode_IOS_NOPASS_RECEIPTDATA	= 21003;				//receipt无法通过验证
+	ErrorCode_IOS_NOPASS_SHARED_SECRET	= 21004;				//提供的shared secret不匹配你账号中的shared secret
+	ErrorCode_IOS_RECEIPT_SERVER_DISABLED	= 21005;				//receipt服务器当前不可用
+	ErrorCode_IOS_SUBSCRIBE_EXPIRE	= 21006;				//订阅过期
+	ErrorCode_IOS_SANDBOX_ERRORTO_PRODUCE	= 21007;				//receipt是Sandbox receipt，但却发送至生产系统的验证服务
+	ErrorCode_IOS_PRODUCE_ERRORTO_SANDBOX	= 21008;				//receipt是Sandbox receipt，但却发送至生产系统的验证服务
+	ErrorCode_IOS_ORDER_HAVE_DEAL = 21009;					//订单已处理	
+	ErrorCode_IOS_BUNDLE_ID_ERROR = 21010;						//bundle id 错误	
+
+	//BindAppleID
+	ErrorCode_BindAppleID_Null = 1901;					// apple_id 为空
+	ErrorCode_AppleID_Had_Bind = 1902;					// apple_id 已经绑定
+
+	//Bingo Mini Game
+	ErrorCode_Bingo_Invaild_Activity = 2001;			//获得未开启
+	ErrorCode_Bingo_Not_Enough_Ball = 2002;				//bingo代币不足
+	ErrorCode_Bingo_Data_Error	= 2003;					//数据异常
+	ErrorCode_Bingo_Not_Enough_Wild_Ball = 2004;		//bingo Wild_Ball不足
+
+	//Dice Fortune Mini Game
+	ErrorCode_Dice_Invaild_Activity = 2101;				//获得未开启
+	ErrorCode_Dice_Not_Enough_Ball = 2102;				//Dice代币不足
+	ErrorCode_Dice_Data_Error	= 2103;					//数据异常
+	 ErrorCode_Dice_Level_Data_Error = 2104;			//关卡等级数据错误
+
+	//BankruptcySystem
+	ErrorCode_Not_Enough_Times = 22001;					//次数不足
+	ErrorCode_Had_Enough_Gold = 22002;					//金币条件不满足
+
+	//虚宝卡
+	ErrorCode_Virtual_Card_Not_Exist = 23001;			//虚宝卡不存在
+	ErrorCode_Virtual_Card_Expire = 23002;				//虚宝卡已过期
+	ErrorCode_Virtual_Card_Data_Error = 23003;			//虚宝卡数据异常
+	ErrorCode_Virtual_Card_Low_Vip_Level = 23004;		//vip 等级不足
+	ErrorCode_Virtual_Card_Bet_Mode_Error = 23005;		//下注模式错误
+	ErrorCode_Virtual_Card_HighRoll_Mode_Error = 23006;	//进入高倍模式条件不足
+
+	//7+30天登入礼 Login Bonus
+	ErrorCode_LoginBonus_GetRewards_Invalid = 23007; //领奖无效
+
+	//DailyCard
+	ErrorCode_DailyCard_GetRewards_Invalid = 23008; //领奖无效
+}
+
+message Coom_Award_Item
+{
+	uint32						Items_ID = 1;
+	uint64						Items_Amount = 2;
+	uint32						Items_Multiply = 3;
+	uint32						Type = 4; // 服务器存储奖励使用
+	uint32						Object_ID = 5; // 服务器存储奖励使用
+}
+
+enum SDKPlatform
+{
+	Platform_Android = 0;
+	Platform_Ios	= 1;
+	Platform_Pc = 2;
+	Platform_Other = 3;
+}
+
+//大厅角色初始数据类型
+enum LobbyRoleInitAttr
+{
+	LRIA_Role 					= 0;	//角色信息
+	LRIA_Activities  			= 1;	//活动们
+	LRIA_Mails					= 2;	//邮件们
+	LRIA_RoleDailyData 			= 3;	//每日
+	LRIA_Mission				= 4;	//任务
+	LRIA_Store					= 5;	//玩家商城数据
+	LRIA_Pig 					= 6;	//pig 
+	LRIA_VIPLounge				= 7;	// vip lounge
+	LRIA_PlayerGuide			= 8;
+	LRIA_Deal					= 9;
+	LRIA_LoginRewards			= 10;	//7天登录
+	LRIA_LevelChallege			= 11;	
+	LRIA_ExternMission			= 12;
+	LRIA_CashBackData			= 13;	//cashback
+	LRIA_GetServerSystemTime	= 14;	//ServerSystemTime
+	LRIA_RoleRateData			= 15;	//RateData
+	LRIA_GloryChallenge			= 16;	//GloryChallenge
+	LRIA_WinnerPass				= 17;	//WinnerPass
+	LRIA_StarCollectMission		= 18;	//StarCollectMission
+	LRIA_BingoMiniGame			= 19;	//BingoMiniGame
+	LRIA_DiceMiniGame			= 21;	//DiceMiniGame
+	LRIA_VirtualCard            = 22;   //虚宝卡
+	LRIA_DailyCard				= 23;   //DailyCard
+}
+
+//游戏角色初始数据类型
+enum GameRoleInitAttr
+{
+	GRIA_Role			= 0;	//角色信息
+}
+
+enum GameOpt
+{
+	GO_Null				= 0;
+	GO_Push 			= 1;		//拉
+	GO_ChooseFreeTimes	= 2;		//选免费次数。（宙斯）发送freetimes 配置id 
+	GO_ChooseBonus		= 3;		//选择bonus。 （宙斯）发送下标 0 - 2
+	GO_ChooseBonusTimes		= 4;
+	GO_TreasureCard		= 5;		//低保卡
+	GO_GM_Debug_Push	= 6;		//GM拉
+	GO_Coon_Push		= 7;		//浣熊啦
+	GO_Coon_GM_Push		= 8;		//浣熊GM啦
+}
+
+enum VipAddition
+{
+	ADDI_Null				= 0;
+	ADDI_Charge_Coin		= 4;
+	ADDI_UpVipLevel_Point	= 5;
+	ADDI_Lottery_Coin		= 6;
+	ADDI_Wheel_Coin			= 7;
+	ADDI_StoreFree_Coin		= 8;
+	ADDI_Mail_Coin			= 9;
+	ADDI_Friend_Coin		= 10;
+	ADDI_Mystery_Gift		= 11;
+	ADDI_FB_Coin			= 12;
+	ADDI_FanPage_Gift		= 13;
+	ADDI_Cards_Coin			= 14;
+	ADDI_Cards_MaxNum		= 15;
+	ADDI_LotteryUltra_Coin	= 16;
+}
+
+enum GameType
+{
+    GameType_Normal					= 0;
+    GameType_VipLoungeLimit			= 1;
+    GameType_VipLoungeExclusave		= 2;
+}
+
+enum GameItemTag
+{
+    GameItemTag_None				= 0;
+    GameItemTag_New					= 1;
+    GameItemTag_Hot					= 2;
+    GameItemTag_ComingSoon			= 3;
+}
+
+message MRewardsItem
+{
+	uint32 	Items_ID_  				= 1;
+	int64 	Item_Amount_  			= 2;	
+	uint32 	Item_Multiply_ 			= 3;
+}

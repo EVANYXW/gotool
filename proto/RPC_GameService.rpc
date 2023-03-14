@@ -1,0 +1,1402 @@
+syntax = "proto3";
+
+option go_package = "gameMsg";
+import "ServerDefine.proto";
+import "Game_Slots.proto";
+option go_package = "../Msg";
+
+/////////////////////////////////////////////////////////////////////egypt////////////////////////////////////////////////////////////////////////////
+message RPC_L2G_LoginGame_Egypt
+{
+	int64 RoleId = 1;
+	MEgyptRoleData	BasicData	= 2;
+}
+
+message RPC_G2L_LoginGame_Egypt
+{
+	int64 			RoleId 		= 1;
+	G2C_Login_Egypt BasicMsg 	= 2;
+}
+
+message RPC_L2G_QuitGame_Egypt
+{
+	int64 RoleId = 1;
+	
+}
+
+message RPC_G2L_QuitGame_Egypt
+{
+	int64 RoleId = 1;
+}
+
+message RPC_L2G_PlayGame_Egypt
+{
+	int64								RoleId				= 1;
+	MEgyptRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3; //下注
+	int32 								Multiple			= 4; //倍数
+	
+	int64 								RoleGold			= 5; //玩家带来的钱
+}
+
+message RPC_L2G_PlayGameFromGm_ChooseResult_Egypt
+{
+	int64								RoleId				= 1;
+	MEgyptRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+}
+
+message RPC_L2G_PlayGameFromGm_InputResult_Egypt
+{
+	int64								RoleId				= 1;
+	MEgyptRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	
+	string 								GmMesh				= 5;
+}
+
+message RPC_G2L_PlayGame_Egypt
+{
+	int64									RoleId			= 1;
+	MEgyptRoleData 							BasicData 		= 2;		//玩家基础数据
+	MGameRoleIncome							BasicIncome		= 3;		//基础收入
+	G2C_Slots_1_PlayGame					BasicMsg 		= 4;		//游戏基础消息	
+	int32 									Bet				= 5;		//游戏底注
+
+}
+
+service RPC_GameService_Egypt
+{
+	rpc LoginGame(RPC_L2G_LoginGame_Egypt) 										returns(RPC_G2L_LoginGame_Egypt) 	{}
+	rpc QuitGame(RPC_L2G_QuitGame_Egypt) 										returns(RPC_G2L_QuitGame_Egypt) 	{}
+	rpc PlayGame(RPC_L2G_PlayGame_Egypt) 										returns(RPC_G2L_PlayGame_Egypt) 	{}
+	rpc PlayGameFromGM_ChooseResult(RPC_L2G_PlayGameFromGm_ChooseResult_Egypt) 	returns(RPC_G2L_PlayGame_Egypt) 	{}
+	rpc PlayGameFromGM_InputResult(RPC_L2G_PlayGameFromGm_InputResult_Egypt) 	returns(RPC_G2L_PlayGame_Egypt) 	{}
+}
+
+/////////////////////////////////////////////////////////////////////zeus////////////////////////////////////////////////////////////////////////////
+
+message RPC_L2G_LoginGame_Zeus
+{
+	int64 RoleId = 1;
+	MZeusRoleData BasicData = 2;
+}
+
+message RPC_G2L_LoginGame_Zeus
+{
+	int64 RoleId = 1;
+	G2C_Login_Zeus BasicMsg = 2;
+}
+
+message RPC_L2G_QuitGame_Zeus
+{
+	int64 RoleId = 1;
+}
+
+message RPC_G2L_QuitGame_Zeus
+{
+	int64 RoleId = 1;
+}
+
+
+message RPC_L2G_PlayGame_Zeus
+{
+	int64								RoleId				= 1;
+	MZeusRoleData						BasicData			= 2;
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	
+	int64 								RoleGold			= 5; //玩家带来的钱
+}
+
+message RPC_L2G_UseTreasureCard_Zeus
+{
+	int64								RoleId				= 1;
+	MZeusRoleData						BasicData			= 2;
+}
+
+message RPC_G2L_UseTreasureCard_Zeus
+{
+	int64 								RoleId 		= 1;
+	MZeusRoleData						BasicData	= 2;
+	G2C_UseTreasureCard					BasicMsg 	= 3;
+}
+
+message RPC_L2G_ChooseBonus_Zeus
+{
+	int64 								RoleId 		= 1;
+	MZeusRoleData						BasicData 	= 2;
+	int32 								BonusId 	= 3;
+}
+
+message RPC_G2L_ChooseBonus_Zeus
+{
+	int64 								RoleId 		= 1;
+	MZeusRoleData						BasicData 	= 2;
+	G2C_Slots_Zeus_ChooseBonus			BasicMsg 	= 3;
+	MGameRoleIncome						BasicIncome		= 4;		//基础收入
+}
+
+message RPC_L2G_ChooseFreeSpin_Zeus
+{
+	int64 								RoleId 		= 1;
+	MZeusRoleData						BasicData	= 2;
+	int32 								FreeSpinId	= 3;
+}
+
+message RPC_G2L_ChooseFreeSpin_Zeus
+{
+	int64 								RoleId 		= 1;
+	MZeusRoleData						BasicData	= 2;
+	G2C_Slots_Zeus_ChooseFreeTimes		BasicMsg 	= 3;
+}
+
+message RPC_L2G_PlayGameFromGm_ChooseResult_Zeus
+{
+	int64								RoleId				= 1;
+	MZeusRoleData						BasicData			= 2;
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+}
+
+message RPC_L2G_PlayGameFromGm_InputResult_Zeus
+{
+	int64								RoleId				= 1;
+	MZeusRoleData						BasicData			= 2;
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	string 								GmMesh				= 5;
+}
+
+message RPC_G2L_PlayGame_Zeus
+{
+	int64									RoleId			= 1;
+	MZeusRoleData 							BasicData 		= 2;		//玩家基础数据
+	MGameRoleIncome							BasicIncome		= 3;		//基础收入
+	G2C_Slots_Zeus_PlayGame					BasicMsg 		= 4;		//游戏基础消息	
+	int32 									Bet				= 5;		//游戏底注
+
+}
+
+service RPC_GameService_Zeus
+{
+	rpc LoginGame(RPC_L2G_LoginGame_Zeus) 										returns(RPC_G2L_LoginGame_Zeus) {}
+	rpc QuitGame(RPC_L2G_QuitGame_Zeus) 										returns(RPC_G2L_QuitGame_Zeus) {}
+	rpc PlayGame(RPC_L2G_PlayGame_Zeus) 										returns(RPC_G2L_PlayGame_Zeus) {}
+	rpc UseTreasureCard(RPC_L2G_UseTreasureCard_Zeus)							returns(RPC_G2L_UseTreasureCard_Zeus) {}
+	rpc ChooseBonus(RPC_L2G_ChooseBonus_Zeus)									returns(RPC_G2L_ChooseBonus_Zeus) {}
+	rpc ChooseFreeSpin(RPC_L2G_ChooseFreeSpin_Zeus)								returns(RPC_G2L_ChooseFreeSpin_Zeus) {}
+	rpc PlayGameFromGM_ChooseResult(RPC_L2G_PlayGameFromGm_ChooseResult_Zeus) 	returns(RPC_G2L_PlayGame_Zeus) {}
+	rpc PlayGameFromGM_InputResult(RPC_L2G_PlayGameFromGm_InputResult_Zeus) 	returns(RPC_G2L_PlayGame_Zeus) {}
+}
+
+/////////////////////////////////////////////////////////////////////Clover////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+message RPC_L2G_LoginGame_Clover
+{
+	int64 RoleId = 1;
+	MCloverRoleData BasicData = 2;
+}
+
+message RPC_G2L_LoginGame_Clover
+{
+	int64 RoleId = 1;
+	G2C_Login_Clover BasicMsg = 2;
+}
+
+message RPC_L2G_QuitGame_Clover
+{
+	int64 RoleId = 1;
+}
+
+message RPC_G2L_QuitGame_Clover
+{
+	int64 RoleId = 1;
+}
+
+message RPC_L2G_PlayGame_Clover
+{
+	int64								RoleId				= 1;
+	MCloverRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3; //下注
+	int32 								Multiple			= 4; //倍数
+	
+	int64 								RoleGold			= 5; //玩家带来的钱
+	
+	int32 								RoleLevel			= 6; //玩家带来的等级
+}
+
+message RPC_L2G_PlayGameFromGm_ChooseResult_Clover
+{
+	int64								RoleId				= 1;
+	MCloverRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	
+	int32								RoleLevel			= 5;
+}
+
+message RPC_L2G_PlayGameFromGm_InputResult_Clover
+{
+	int64								RoleId				= 1;
+	MCloverRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	string								GmMesh				= 5;
+	
+	int64 								RoleLevel 			= 6;
+}
+
+message RPC_G2L_PlayGame_Clover
+{
+	int64									RoleId			= 1;
+	MCloverRoleData 						BasicData 		= 2;		//玩家基础数据
+	MGameRoleIncome							BasicIncome		= 3;		//基础收入
+	G2C_Slots_Clover_PlayGame				BasicMsg 		= 4;		//游戏基础消息	
+	int32 									Bet				= 5;		//游戏底注
+
+}
+
+message RPC_L2G_ChooseBonus_Clover
+{
+	int64 								RoleId 		= 1;
+	MCloverRoleData						BasicData 	= 2;
+	int32 								BonusId 	= 3;
+	int32 								BonusIndex 	= 4;
+	int32 								RoleLevel  	= 5;
+}
+
+message RPC_G2L_ChooseBonus_Clover
+{
+	int64 								RoleId 		= 1;
+	MCloverRoleData						BasicData 	= 2;
+	G2C_Choose_PlayGame					BasicMsg 	= 3;
+	MGameRoleIncome						BasicIncome		= 4;		//基础收入
+}
+
+service RPC_GameService_Clover
+{
+	rpc LoginGame(RPC_L2G_LoginGame_Clover) 										returns(RPC_G2L_LoginGame_Clover) 	{}
+	rpc QuitGame(RPC_L2G_QuitGame_Clover) 										returns(RPC_G2L_QuitGame_Clover) 	{}
+	rpc PlayGame(RPC_L2G_PlayGame_Clover) 										returns(RPC_G2L_PlayGame_Clover) 	{}
+	rpc ChooseBonus(RPC_L2G_ChooseBonus_Clover)									returns(RPC_G2L_ChooseBonus_Clover) {}
+	rpc PlayGameFromGM_ChooseResult(RPC_L2G_PlayGameFromGm_ChooseResult_Clover) 	returns(RPC_G2L_PlayGame_Clover) 	{}
+	rpc PlayGameFromGM_InputResult(RPC_L2G_PlayGameFromGm_InputResult_Clover) 	returns(RPC_G2L_PlayGame_Clover) 	{}
+}
+
+/////////////////////////////////////////////////////////////////////Alice/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+message RPC_L2G_LoginGame_Alice
+{
+	int64 RoleId = 1;
+	MAliceRoleData BasicData = 2;
+}
+
+message RPC_G2L_LoginGame_Alice
+{
+	int64 RoleId = 1;
+	G2C_Login_Alice BasicMsg = 2;
+}
+
+message RPC_L2G_QuitGame_Alice
+{
+	int64 RoleId = 1;
+}
+
+message RPC_G2L_QuitGame_Alice
+{
+	int64 RoleId = 1;
+}
+
+message RPC_L2G_PlayGame_Alice
+{
+	int64								RoleId				= 1;
+	MAliceRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3; //下注
+	int32 								Multiple			= 4; //倍数
+	
+	int64 								RoleGold			= 5; //玩家带来的钱
+}
+
+message RPC_L2G_PlayGameFromGm_ChooseResult_Alice
+{
+	int64								RoleId				= 1;
+	MAliceRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+}
+
+message RPC_L2G_PlayGameFromGm_InputResult_Alice
+{
+	int64								RoleId				= 1;
+	MAliceRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	
+	string 								GmMesh				= 5;
+}
+
+message RPC_G2L_PlayGame_Alice
+{
+	int64									RoleId			= 1;
+	MAliceRoleData 							BasicData 		= 2;		//玩家基础数据
+	MGameRoleIncome							BasicIncome		= 3;		//基础收入
+	G2C_Slots_Alice_PlayGame				BasicMsg 		= 4;		//游戏基础消息	
+	int32 									Bet				= 5;		//游戏底注
+}
+
+service RPC_GameService_Alice
+{
+	rpc LoginGame(RPC_L2G_LoginGame_Alice) 										returns(RPC_G2L_LoginGame_Alice) 	{}
+	rpc QuitGame(RPC_L2G_QuitGame_Alice) 										returns(RPC_G2L_QuitGame_Alice) 	{}
+	rpc PlayGame(RPC_L2G_PlayGame_Alice) 										returns(RPC_G2L_PlayGame_Alice) 	{}
+	rpc PlayGameFromGM_ChooseResult(RPC_L2G_PlayGameFromGm_ChooseResult_Alice) 	returns(RPC_G2L_PlayGame_Alice) 	{}
+	rpc PlayGameFromGM_InputResult(RPC_L2G_PlayGameFromGm_InputResult_Alice) 	returns(RPC_G2L_PlayGame_Alice) 	{}
+}
+/////////////////////////////////////////////////////////////////////Lion////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+message RPC_L2G_LoginGame_Lion
+{
+	int64 RoleId = 1;
+	MLionRoleData	BasicData = 2;
+}
+
+message RPC_G2L_LoginGame_Lion
+{
+	int64 RoleId = 1;
+	G2C_Login_Lion BasicMsg = 2;
+}
+
+message RPC_L2G_QuitGame_Lion
+{
+	int64 RoleId = 1;
+}
+
+message RPC_G2L_QuitGame_Lion
+{
+	int64 RoleId = 1;
+}
+
+message RPC_L2G_PlayGame_Lion
+{
+	int64								RoleId				= 1;
+	MLionRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3; //下注
+	int32 								Multiple			= 4; //倍数
+	
+	int64 								RoleGold			= 5; //玩家带来的钱
+}
+
+message RPC_L2G_PlayGameFromGm_ChooseResult_Lion
+{
+	int64								RoleId				= 1;
+	MLionRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+}
+
+message RPC_L2G_PlayGameFromGm_InputResult_Lion
+{
+	int64								RoleId				= 1;
+	MLionRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	
+	string 								GmMesh				= 5;
+}
+
+message RPC_G2L_PlayGame_Lion
+{
+	int64									RoleId			= 1;
+	MLionRoleData 							BasicData 		= 2;		//玩家基础数据
+	MGameRoleIncome							BasicIncome		= 3;		//基础收入
+	G2C_Slots_LionDance_PlayGame			BasicMsg 		= 4;		//游戏基础消息	
+	int32 									Bet				= 5;		//游戏底注
+}
+
+service RPC_GameService_Lion
+{
+	rpc LoginGame(RPC_L2G_LoginGame_Lion) 										returns(RPC_G2L_LoginGame_Lion) 	{}
+	rpc QuitGame(RPC_L2G_QuitGame_Lion) 										returns(RPC_G2L_QuitGame_Lion) 	{}
+	rpc PlayGame(RPC_L2G_PlayGame_Lion) 										returns(RPC_G2L_PlayGame_Lion) 	{}
+	rpc PlayGameFromGM_ChooseResult(RPC_L2G_PlayGameFromGm_ChooseResult_Lion) 	returns(RPC_G2L_PlayGame_Lion) 	{}
+	rpc PlayGameFromGM_InputResult(RPC_L2G_PlayGameFromGm_InputResult_Lion) 	returns(RPC_G2L_PlayGame_Lion) 	{}
+}
+/////////////////////////////////////////////////////////////////////Gem////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+message RPC_L2G_LoginGame_Gem
+{
+	int64 RoleId = 1;
+	MGemRoleData	BasicData = 2;
+}
+
+message RPC_G2L_LoginGame_Gem
+{
+	int64 RoleId = 1;
+	G2C_Login_Gem BasicMsg = 2;
+}
+
+message RPC_L2G_QuitGame_Gem
+{
+	int64 RoleId = 1;
+}
+
+message RPC_G2L_QuitGame_Gem
+{
+	int64 RoleId = 1;
+}
+
+message RPC_L2G_PlayGame_Gem
+{
+	int64								RoleId				= 1;
+	MGemRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3; //下注
+	int32 								Multiple			= 4; //倍数
+	
+	int64 								RoleGold			= 5; //玩家带来的钱
+}
+
+message RPC_L2G_PlayGameFromGm_ChooseResult_Gem
+{
+	int64								RoleId				= 1;
+	MGemRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+}
+
+message RPC_L2G_PlayGameFromGm_InputResult_Gem
+{
+	int64								RoleId				= 1;
+	MGemRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	string								GmMesh				= 5;
+}
+
+message RPC_G2L_PlayGame_Gem
+{
+	int64								RoleId			= 1;
+	MGemRoleData 						BasicData 		= 2;		//玩家基础数据
+	MGameRoleIncome						BasicIncome		= 3;		//基础收入
+	G2C_Slots_Gem_PlayGame				BasicMsg 		= 4;		//游戏基础消息	
+	int32 								Bet				= 5;		//游戏底注
+}
+
+
+
+service RPC_GameService_Gem
+{
+	rpc LoginGame(RPC_L2G_LoginGame_Gem) 										returns(RPC_G2L_LoginGame_Gem) 	{}
+	rpc QuitGame(RPC_L2G_QuitGame_Gem) 										returns(RPC_G2L_QuitGame_Gem) 	{}
+	rpc PlayGame(RPC_L2G_PlayGame_Gem) 										returns(RPC_G2L_PlayGame_Gem) 	{}
+	rpc PlayGameFromGM_ChooseResult(RPC_L2G_PlayGameFromGm_ChooseResult_Gem) 	returns(RPC_G2L_PlayGame_Gem) 	{}
+	rpc PlayGameFromGM_InputResult(RPC_L2G_PlayGameFromGm_InputResult_Gem) 	returns(RPC_G2L_PlayGame_Gem) 	{}
+}
+
+/////////////////////////////////////////////////////////////////////Gem777////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+message RPC_L2G_LoginGame_Gem777
+{
+	int64 RoleId = 1;
+	MGem777RoleData BasicData = 2;
+}
+
+message RPC_G2L_LoginGame_Gem777
+{
+	int64 RoleId = 1;
+	G2C_Login_Gem777 BasicMsg = 2;
+}
+
+message RPC_L2G_QuitGame_Gem777
+{
+	int64 RoleId = 1;
+}
+
+message RPC_G2L_QuitGame_Gem777
+{
+	int64 RoleId = 1;
+}
+
+message RPC_L2G_PlayGame_Gem777
+{
+	int64								RoleId				= 1;
+	MGem777RoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3; //下注
+	int32 								Multiple			= 4; //倍数
+	
+	int64 								RoleGold			= 5; //玩家带来的钱
+}
+
+message RPC_L2G_PlayGameFromGm_ChooseResult_Gem777
+{
+	int64								RoleId				= 1;
+	MGem777RoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+}
+
+message RPC_L2G_PlayGameFromGm_InputResult_Gem777
+{
+	int64								RoleId				= 1;
+	MGem777RoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	string								GmMesh				= 5;
+}
+
+message RPC_G2L_PlayGame_Gem777
+{
+	int64									RoleId			= 1;
+	MGem777RoleData 						BasicData 		= 2;		//玩家基础数据
+	MGameRoleIncome							BasicIncome		= 3;		//基础收入
+	G2C_Slots_Gem777_PlayGame				BasicMsg 		= 4;		//游戏基础消息	
+	int32 									Bet				= 5;		//游戏底注
+}
+
+
+
+service RPC_GameService_Gem777
+{
+	rpc LoginGame(RPC_L2G_LoginGame_Gem777) 										returns(RPC_G2L_LoginGame_Gem777) 	{}
+	rpc QuitGame(RPC_L2G_QuitGame_Gem777) 										returns(RPC_G2L_QuitGame_Gem777) 	{}
+	rpc PlayGame(RPC_L2G_PlayGame_Gem777) 										returns(RPC_G2L_PlayGame_Gem777) 	{}
+	rpc PlayGameFromGM_ChooseResult(RPC_L2G_PlayGameFromGm_ChooseResult_Gem777) 	returns(RPC_G2L_PlayGame_Gem777) 	{}
+	rpc PlayGameFromGM_InputResult(RPC_L2G_PlayGameFromGm_InputResult_Gem777) 	returns(RPC_G2L_PlayGame_Gem777) 	{}
+}
+
+/////////////////////////////////////////////////////////////////////Fire777////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+message RPC_L2G_LoginGame_Fire777
+{
+	int64 RoleId = 1;
+	MFire777RoleData BasicData = 2;
+}
+
+message RPC_G2L_LoginGame_Fire777
+{
+	int64 RoleId = 1;
+	G2C_Login_Fire777 BasicMsg = 2;
+}
+
+message RPC_L2G_QuitGame_Fire777
+{
+	int64 RoleId = 1;
+}
+
+message RPC_G2L_QuitGame_Fire777
+{
+	int64 RoleId = 1;
+}
+
+message RPC_L2G_PlayGame_Fire777
+{
+	int64								RoleId				= 1;
+	MFire777RoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3; //下注
+	int32 								Multiple			= 4; //倍数
+	
+	int64 								RoleGold			= 5; //玩家带来的钱
+}
+
+message RPC_L2G_PlayGameFromGm_ChooseResult_Fire777
+{
+	int64								RoleId				= 1;
+	MFire777RoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+}
+
+message RPC_L2G_PlayGameFromGm_InputResult_Fire777
+{
+	int64								RoleId				= 1;
+	MFire777RoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	string								GmMesh				= 5;
+}
+
+message RPC_G2L_PlayGame_Fire777
+{
+	int64									RoleId			= 1;
+	MFire777RoleData 						BasicData 		= 2;		//玩家基础数据
+	MGameRoleIncome							BasicIncome		= 3;		//基础收入
+	G2C_Slots_Fire777_PlayGame				BasicMsg 		= 4;		//游戏基础消息	
+	int32 									Bet				= 5;		//游戏底注
+}
+
+
+
+service RPC_GameService_Fire777
+{
+	rpc LoginGame(RPC_L2G_LoginGame_Fire777) 										returns(RPC_G2L_LoginGame_Fire777) 	{}
+	rpc QuitGame(RPC_L2G_QuitGame_Fire777) 										returns(RPC_G2L_QuitGame_Fire777) 	{}
+	rpc PlayGame(RPC_L2G_PlayGame_Fire777) 										returns(RPC_G2L_PlayGame_Fire777) 	{}
+	rpc PlayGameFromGM_ChooseResult(RPC_L2G_PlayGameFromGm_ChooseResult_Fire777) 	returns(RPC_G2L_PlayGame_Fire777) 	{}
+	rpc PlayGameFromGM_InputResult(RPC_L2G_PlayGameFromGm_InputResult_Fire777) 	returns(RPC_G2L_PlayGame_Fire777) 	{}
+}
+
+/////////////////////////////////////////////////////////////////////Cat////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+message RPC_L2G_LoginGame_Cat
+{
+	int64 RoleId = 1;
+	MCatRoleData BasicData = 2;
+}
+
+message RPC_G2L_LoginGame_Cat
+{
+	int64 RoleId = 1;
+	G2C_Login_Cat BasicMsg = 2;
+}
+
+message RPC_L2G_QuitGame_Cat
+{
+	int64 RoleId = 1;
+}
+
+message RPC_G2L_QuitGame_Cat
+{
+	int64 RoleId = 1;
+}
+
+message RPC_L2G_PlayGame_Cat
+{
+	int64								RoleId				= 1;
+	MCatRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3; //下注
+	int32 								Multiple			= 4; //倍数
+	
+	int64 								RoleGold			= 5; //玩家带来的钱
+}
+
+message RPC_L2G_PlayGameFromGm_ChooseResult_Cat
+{
+	int64								RoleId				= 1;
+	MCatRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+}
+
+message RPC_L2G_PlayGameFromGm_InputResult_Cat
+{
+	int64								RoleId				= 1;
+	MCatRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	string								GmMesh				= 5;
+}
+
+message RPC_G2L_PlayGame_Cat
+{
+	int64								RoleId			= 1;
+	MCatRoleData 						BasicData 		= 2;		//玩家基础数据
+	MGameRoleIncome						BasicIncome		= 3;		//基础收入
+	G2C_Slots_Cat_PlayGame				BasicMsg 		= 4;		//游戏基础消息	
+	int32 								Bet				= 5;		//游戏底注
+}
+
+
+
+service RPC_GameService_Cat
+{
+	rpc LoginGame(RPC_L2G_LoginGame_Cat) 										returns(RPC_G2L_LoginGame_Cat) 	{}
+	rpc QuitGame(RPC_L2G_QuitGame_Cat) 										returns(RPC_G2L_QuitGame_Cat) 	{}
+	rpc PlayGame(RPC_L2G_PlayGame_Cat) 										returns(RPC_G2L_PlayGame_Cat) 	{}
+	rpc PlayGameFromGM_ChooseResult(RPC_L2G_PlayGameFromGm_ChooseResult_Cat) 	returns(RPC_G2L_PlayGame_Cat) 	{}
+	rpc PlayGameFromGM_InputResult(RPC_L2G_PlayGameFromGm_InputResult_Cat) 	returns(RPC_G2L_PlayGame_Cat) 	{}
+}
+
+/////////////////////////////////////////////////////////////////////Dog////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+message RPC_L2G_LoginGame_Dog
+{
+	int64 RoleId = 1;
+	MDogRoleData BasicData = 2;
+}
+
+message RPC_G2L_LoginGame_Dog
+{
+	int64 RoleId = 1;
+	G2C_Login_Dog BasicMsg = 2;
+}
+
+message RPC_L2G_QuitGame_Dog
+{
+	int64 RoleId = 1;
+}
+
+message RPC_G2L_QuitGame_Dog
+{
+	int64 RoleId = 1;
+}
+
+message RPC_L2G_PlayGame_Dog
+{
+	int64								RoleId				= 1;
+	MDogRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3; //下注
+	int32 								Multiple			= 4; //倍数
+	
+	int64 								RoleGold			= 5; //玩家带来的钱
+	
+}
+
+message RPC_L2G_PlayGameFromGm_ChooseResult_Dog
+{
+	int64								RoleId				= 1;
+	MDogRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	
+}
+
+message RPC_L2G_PlayGameFromGm_InputResult_Dog
+{
+	int64								RoleId				= 1;
+	MDogRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	string								GmMesh				= 5;
+	
+}
+
+message RPC_G2L_PlayGame_Dog
+{
+	int64									RoleId			= 1;
+	MDogRoleData 							BasicData 		= 2;		//玩家基础数据
+	MGameRoleIncome							BasicIncome		= 3;		//基础收入
+	G2C_Slots_Dog_PlayGame					BasicMsg 		= 4;		//游戏基础消息	
+	int32 									Bet				= 5;		//游戏底注
+}
+
+message RPC_L2G_ChooseBonus_Dog
+{
+	int64 								RoleId 		= 1;
+	MDogRoleData						BasicData 	= 2;
+	int32 								BonusId 	= 3;
+	int32 								BonusIndex 	= 4;
+}
+
+message RPC_G2L_ChooseBonus_Dog
+{
+	int64 								RoleId 		= 1;
+	MDogRoleData						BasicData 	= 2;
+	G2C_Slots_Dog_ChooseBonus			BasicMsg 	= 3;
+	MGameRoleIncome							BasicIncome		= 4;		//基础收入
+
+}
+
+message RPC_L2G_ChooseBonusTimes_Dog
+{
+	int64 								RoleId 		= 1;
+	MDogRoleData						BasicData 	= 2;
+	int32 								BonusId 	= 3;
+}
+
+message RPC_G2L_ChooseBonusTimes_Dog
+{
+	int64 								RoleId 		= 1;
+	MDogRoleData						BasicData 	= 2;
+	G2C_Slots_Dog_ChooseBonusTimes		BasicMsg 	= 3;
+}
+
+service RPC_GameService_Dog
+{
+	rpc LoginGame(RPC_L2G_LoginGame_Dog) 											returns(RPC_G2L_LoginGame_Dog) 	{}
+	rpc QuitGame(RPC_L2G_QuitGame_Dog) 												returns(RPC_G2L_QuitGame_Dog) 	{}
+	rpc PlayGame(RPC_L2G_PlayGame_Dog) 												returns(RPC_G2L_PlayGame_Dog) 	{}
+	rpc ChooseBonus(RPC_L2G_ChooseBonus_Dog)										returns(RPC_G2L_ChooseBonus_Dog) {}
+	rpc ChooseBonusTimes(RPC_L2G_ChooseBonusTimes_Dog)								returns(RPC_G2L_ChooseBonusTimes_Dog) {}
+	rpc PlayGameFromGM_ChooseResult(RPC_L2G_PlayGameFromGm_ChooseResult_Dog) 		returns(RPC_G2L_PlayGame_Dog) 	{}
+	rpc PlayGameFromGM_InputResult(RPC_L2G_PlayGameFromGm_InputResult_Dog) 			returns(RPC_G2L_PlayGame_Dog) 	{}
+}
+
+/////////////////////////////////////////////////////////////////////ForestElf/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+message RPC_L2G_LoginGame_ForestElf
+{
+	int64 RoleId = 1;
+	MForestElfRoleData BasicData = 2;
+}
+
+message RPC_G2L_LoginGame_ForestElf
+{
+	int64 RoleId = 1;
+	G2C_Login_ForestElf BasicMsg = 2;
+}
+
+message RPC_L2G_QuitGame_ForestElf
+{
+	int64 RoleId = 1;
+}
+
+message RPC_G2L_QuitGame_ForestElf
+{
+	int64 RoleId = 1;
+}
+
+message RPC_L2G_PlayGame_ForestElf
+{
+	int64								RoleId				= 1;
+	MForestElfRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3; //下注
+	int32 								Multiple			= 4; //倍数
+	
+	int64 								RoleGold			= 5; //玩家带来的钱
+}
+
+message RPC_L2G_PlayGameFromGm_ChooseResult_ForestElf
+{
+	int64								RoleId				= 1;
+	MForestElfRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+}
+
+message RPC_L2G_PlayGameFromGm_InputResult_ForestElf
+{
+	int64								RoleId				= 1;
+	MForestElfRoleData					BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	
+	string 								GmMesh				= 5;
+}
+
+message RPC_G2L_PlayGame_ForestElf
+{
+	int64									RoleId			= 1;
+	MForestElfRoleData 						BasicData 		= 2;		//玩家基础数据
+	MGameRoleIncome							BasicIncome		= 3;		//基础收入
+	G2C_Slots_ForestElf_PlayGame			BasicMsg 		= 4;		//游戏基础消息	
+	int32 									Bet				= 5;		//游戏底注
+}
+
+service RPC_GameService_ForestElf
+{
+	rpc LoginGame(RPC_L2G_LoginGame_ForestElf) 										returns(RPC_G2L_LoginGame_ForestElf) 	{}
+	rpc QuitGame(RPC_L2G_QuitGame_ForestElf) 										returns(RPC_G2L_QuitGame_ForestElf) 	{}
+	rpc PlayGame(RPC_L2G_PlayGame_ForestElf) 										returns(RPC_G2L_PlayGame_ForestElf) 	{}
+	rpc PlayGameFromGM_ChooseResult(RPC_L2G_PlayGameFromGm_ChooseResult_ForestElf) 	returns(RPC_G2L_PlayGame_ForestElf) 	{}
+	rpc PlayGameFromGM_InputResult(RPC_L2G_PlayGameFromGm_InputResult_ForestElf) 	returns(RPC_G2L_PlayGame_ForestElf) 	{}
+}
+
+/////////////////////////////////////////////////////////////////////Maya/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+message RPC_L2G_LoginGame_Maya
+{
+	int64 RoleId = 1;
+	MMayaRoleData BasicData = 2;
+}
+
+message RPC_G2L_LoginGame_Maya
+{
+	int64 RoleId = 1;
+	G2C_Login_Maya BasicMsg = 2;
+}
+
+message RPC_L2G_QuitGame_Maya
+{
+	int64 RoleId = 1;
+}
+
+message RPC_G2L_QuitGame_Maya
+{
+	int64 RoleId = 1;
+}
+
+message RPC_L2G_PlayGame_Maya
+{
+	int64								RoleId				= 1;
+	MMayaRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3; //下注
+	int32 								Multiple			= 4; //倍数
+	
+	int64 								RoleGold			= 5; //玩家带来的钱
+}
+
+message RPC_L2G_PlayGameFromGm_ChooseResult_Maya
+{
+	int64								RoleId				= 1;
+	MMayaRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+}
+
+message RPC_L2G_PlayGameFromGm_InputResult_Maya
+{
+	int64								RoleId				= 1;
+	MMayaRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	
+	string 								GmMesh				= 5;
+}
+
+message RPC_G2L_PlayGame_Maya
+{
+	int64									RoleId			= 1;
+	MMayaRoleData 							BasicData 		= 2;		//玩家基础数据
+	MGameRoleIncome							BasicIncome		= 3;		//基础收入
+	G2C_Slots_Maya_PlayGame					BasicMsg 		= 4;		//游戏基础消息	
+	int32 									Bet				= 5;		//游戏底注
+}
+
+service RPC_GameService_Maya
+{
+	rpc LoginGame(RPC_L2G_LoginGame_Maya) 										returns(RPC_G2L_LoginGame_Maya) 	{}
+	rpc QuitGame(RPC_L2G_QuitGame_Maya) 										returns(RPC_G2L_QuitGame_Maya) 	{}
+	rpc PlayGame(RPC_L2G_PlayGame_Maya) 										returns(RPC_G2L_PlayGame_Maya) 	{}
+	rpc PlayGameFromGM_ChooseResult(RPC_L2G_PlayGameFromGm_ChooseResult_Maya) 	returns(RPC_G2L_PlayGame_Maya) 	{}
+	rpc PlayGameFromGM_InputResult(RPC_L2G_PlayGameFromGm_InputResult_Maya) 	returns(RPC_G2L_PlayGame_Maya) 	{}
+}
+
+
+/////////////////////////////////////////////////////////////////////Tarzan////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+message RPC_L2G_LoginGame_Tarzan
+{
+	int64 RoleId = 1;
+	MTarzanRoleData	BasicData = 2;
+}
+
+message RPC_G2L_LoginGame_Tarzan
+{
+	int64 RoleId = 1;
+	G2C_Login_Tarzan BasicMsg = 2;
+}
+
+message RPC_L2G_QuitGame_Tarzan
+{
+	int64 RoleId = 1;
+}
+
+message RPC_G2L_QuitGame_Tarzan
+{
+	int64 RoleId = 1;
+}
+
+message RPC_L2G_PlayGame_Tarzan
+{
+	int64								RoleId				= 1;
+	MTarzanRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3; //下注
+	int32 								Multiple			= 4; //倍数
+	
+	int64 								RoleGold			= 5; //玩家带来的钱
+	
+}
+
+message RPC_L2G_PlayGameFromGm_ChooseResult_Tarzan
+{
+	int64								RoleId				= 1;
+	MTarzanRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	
+}
+
+message RPC_L2G_PlayGameFromGm_InputResult_Tarzan
+{
+	int64								RoleId				= 1;
+	MTarzanRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	string								GmMesh				= 5;
+	
+}
+
+message RPC_G2L_PlayGame_Tarzan
+{
+	int64									RoleId			= 1;
+	MTarzanRoleData 						BasicData 		= 2;		//玩家基础数据
+	MGameRoleIncome							BasicIncome		= 3;		//基础收入
+	G2C_Slots_Tarzan_PlayGame				BasicMsg 		= 4;		//游戏基础消息	
+	int32 									Bet				= 5;		//游戏底注
+}
+
+message RPC_L2G_ChooseBonus_Tarzan
+{
+	int64 								RoleId 		= 1;
+	MTarzanRoleData						BasicData 	= 2;
+	int32 								BonusId 	= 3;
+	int32 								BonusIndex 	= 4;
+}
+
+message RPC_G2L_ChooseBonus_Tarzan
+{
+	int64 								RoleId 		= 1;
+	MTarzanRoleData						BasicData 	= 2;
+	MGameRoleIncome						BasicIncome	= 3;		//基础收入
+	G2C_Choose_PlayGame					BasicMsg 	= 4;
+}
+
+service RPC_GameService_Tarzan
+{
+	rpc LoginGame(RPC_L2G_LoginGame_Tarzan) 											returns(RPC_G2L_LoginGame_Tarzan) 	{}
+	rpc QuitGame(RPC_L2G_QuitGame_Tarzan) 												returns(RPC_G2L_QuitGame_Tarzan) 	{}
+	rpc PlayGame(RPC_L2G_PlayGame_Tarzan) 												returns(RPC_G2L_PlayGame_Tarzan) 	{}
+	rpc ChooseBonus(RPC_L2G_ChooseBonus_Tarzan)											returns(RPC_G2L_ChooseBonus_Tarzan) {}
+	rpc PlayGameFromGM_ChooseResult(RPC_L2G_PlayGameFromGm_ChooseResult_Tarzan) 		returns(RPC_G2L_PlayGame_Tarzan) 	{}
+	rpc PlayGameFromGM_InputResult(RPC_L2G_PlayGameFromGm_InputResult_Tarzan) 			returns(RPC_G2L_PlayGame_Tarzan) 	{}
+}
+
+////////////////////////////////////////////////////////////////////SeaRover////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+message RPC_L2G_LoginGame_SeaRover
+{
+	int64 RoleId = 1;
+	MSeaRoverRoleData BasicData = 2;
+}
+
+message RPC_G2L_LoginGame_SeaRover
+{
+	int64 RoleId = 1;
+	G2C_Login_SeaRover BasicMsg = 2;
+}
+
+message RPC_L2G_QuitGame_SeaRover
+{
+	int64 RoleId = 1;
+}
+
+message RPC_G2L_QuitGame_SeaRover
+{
+	int64 RoleId = 1;
+}
+
+message RPC_L2G_PlayGame_SeaRover
+{
+	int64								RoleId				= 1;
+	MSeaRoverRoleData					BasicData			= 2;
+	
+	int32 								Bet					= 3; //下注
+	int32 								Multiple			= 4; //倍数
+	
+	int64 								RoleGold			= 5; //玩家带来的钱
+}
+
+message RPC_L2G_PlayGameFromGm_ChooseResult_SeaRover
+{
+	int64								RoleId				= 1;
+	MSeaRoverRoleData					BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	
+	int32								RoleLevel			= 5;
+}
+
+message RPC_L2G_PlayGameFromGm_InputResult_SeaRover
+{
+	int64								RoleId				= 1;
+	MSeaRoverRoleData					BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	string								GmMesh				= 5;
+}
+
+message RPC_G2L_PlayGame_SeaRover
+{
+	int64									RoleId			= 1;
+	MSeaRoverRoleData 						BasicData 		= 2;		//玩家基础数据
+	MGameRoleIncome							BasicIncome		= 3;		//基础收入
+	G2C_Slots_SeaRover_PlayGame				BasicMsg 		= 4;		//游戏基础消息	
+	int32 									Bet				= 5;		//游戏底注
+}
+
+message RPC_L2G_ChooseBonus_SeaRover
+{
+	int64 								RoleId 		= 1;
+	MSeaRoverRoleData					BasicData 	= 2;
+	int32 								BonusId 	= 3;
+	int32 								BonusIndex 	= 4;
+}
+
+message RPC_G2L_ChooseBonus_SeaRover
+{
+	int64 									RoleId 		= 1;
+	MSeaRoverRoleData						BasicData 	= 2;
+	G2C_Slots_SeaRover_ChooseBonus			BasicMsg 	= 3;
+	MGameRoleIncome							BasicIncome		= 4;		//基础收入
+
+}
+
+message RPC_L2G_ChooseBonusTimes_SeaRover
+{
+	int64 								RoleId 		= 1;
+	MSeaRoverRoleData					BasicData 	= 2;
+	int32 								BonusId 	= 3;
+}
+
+message RPC_G2L_ChooseBonusTimes_SeaRover
+{
+	int64 									RoleId 		= 1;
+	MSeaRoverRoleData						BasicData 	= 2;
+	G2C_Slots_SeaRover_ChooseBonusTimes		BasicMsg 	= 3;
+}
+
+service RPC_GameService_SeaRover
+{
+	rpc LoginGame(RPC_L2G_LoginGame_SeaRover) 										returns(RPC_G2L_LoginGame_SeaRover) 	{}
+	rpc QuitGame(RPC_L2G_QuitGame_SeaRover) 										returns(RPC_G2L_QuitGame_SeaRover) 	{}
+	rpc PlayGame(RPC_L2G_PlayGame_SeaRover) 										returns(RPC_G2L_PlayGame_SeaRover) 	{}
+	rpc ChooseBonus(RPC_L2G_ChooseBonus_SeaRover)									returns(RPC_G2L_ChooseBonus_SeaRover) {}
+	rpc ChooseBonusTimes(RPC_L2G_ChooseBonusTimes_SeaRover)							returns(RPC_G2L_ChooseBonusTimes_SeaRover) {}
+	rpc PlayGameFromGM_ChooseResult(RPC_L2G_PlayGameFromGm_ChooseResult_SeaRover) 	returns(RPC_G2L_PlayGame_SeaRover) 	{}
+	rpc PlayGameFromGM_InputResult(RPC_L2G_PlayGameFromGm_InputResult_SeaRover) 	returns(RPC_G2L_PlayGame_SeaRover) 	{}
+}
+
+/////////////////////////////////////////////////////////////////////WildVolcano/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+message RPC_L2G_LoginGame_WildVolcano
+{
+	int64 RoleId = 1;
+	MWildVolcanoRoleData BasicData = 2;
+}
+
+message RPC_G2L_LoginGame_WildVolcano
+{
+	int64 RoleId = 1;
+	G2C_Login_WildVolcano BasicMsg = 2;
+}
+
+message RPC_L2G_QuitGame_WildVolcano
+{
+	int64 RoleId = 1;
+}
+
+message RPC_G2L_QuitGame_WildVolcano
+{
+	int64 RoleId = 1;
+}
+
+message RPC_L2G_PlayGame_WildVolcano
+{
+	int64								RoleId				= 1;
+	MWildVolcanoRoleData				BasicData			= 2;
+	
+	int32 								Bet					= 3; //下注
+	int32 								Multiple			= 4; //倍数
+	
+	int64 								RoleGold			= 5; //玩家带来的钱
+}
+
+message RPC_L2G_PlayGameFromGm_ChooseResult_WildVolcano
+{
+	int64								RoleId				= 1;
+	MWildVolcanoRoleData				BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+}
+
+message RPC_L2G_PlayGameFromGm_InputResult_WildVolcano
+{
+	int64								RoleId				= 1;
+	MWildVolcanoRoleData				BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	
+	string 								GmMesh				= 5;
+}
+
+message RPC_G2L_PlayGame_WildVolcano
+{
+	int64										RoleId			= 1;
+	MWildVolcanoRoleData 						BasicData 		= 2;		//玩家基础数据
+	MGameRoleIncome								BasicIncome		= 3;		//基础收入
+	G2C_Slots_WildVolcano_PlayGame				BasicMsg 		= 4;		//游戏基础消息	
+	int32 										Bet				= 5;		//游戏底注
+}
+
+service RPC_GameService_WildVolcano
+{
+	rpc LoginGame(RPC_L2G_LoginGame_WildVolcano) 										returns(RPC_G2L_LoginGame_WildVolcano) 	{}
+	rpc QuitGame(RPC_L2G_QuitGame_WildVolcano) 											returns(RPC_G2L_QuitGame_WildVolcano) 	{}
+	rpc PlayGame(RPC_L2G_PlayGame_WildVolcano) 											returns(RPC_G2L_PlayGame_WildVolcano) 	{}
+	rpc PlayGameFromGM_ChooseResult(RPC_L2G_PlayGameFromGm_ChooseResult_WildVolcano) 	returns(RPC_G2L_PlayGame_WildVolcano) 	{}
+	rpc PlayGameFromGM_InputResult(RPC_L2G_PlayGameFromGm_InputResult_WildVolcano) 		returns(RPC_G2L_PlayGame_WildVolcano) 	{}
+}
+//
+/////////////////////////////////////////////////////////////////////Sweets////////////////////////////////////////////////////////////////////////////
+
+message RPC_L2G_LoginGame_Sweets
+{
+	int64 RoleId = 1;
+	MSweetRoleData BasicData = 2;
+}
+
+message RPC_G2L_LoginGame_Sweets
+{
+	int64 RoleId = 1;
+	G2C_Login_Sweet BasicMsg = 2;
+}
+
+message RPC_L2G_QuitGame_Sweets
+{
+	int64 RoleId = 1;
+}
+
+message RPC_G2L_QuitGame_Sweets
+{
+	int64 RoleId = 1;
+}
+
+
+message RPC_L2G_PlayGame_Sweets
+{
+	int64								RoleId				= 1;
+	MSweetRoleData						BasicData			= 2;
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	
+	int64 								RoleGold			= 5; //玩家带来的钱
+}
+
+
+
+message RPC_L2G_ChooseFreeSpin_Sweets
+{
+	int64 								RoleId 		= 1;
+	MSweetRoleData						BasicData	= 2;
+	int32 								FreeSpinId	= 3;
+}
+
+message RPC_G2L_ChooseFreeSpin_Sweets
+{
+	int64 								RoleId 		= 1;
+	MSweetRoleData						BasicData	= 2;
+	G2C_Slots_General_ChooseFreeTimes	BasicMsg 	= 3;
+}
+
+message RPC_L2G_PlayGameFromGm_ChooseResult_Sweets
+{
+	int64								RoleId				= 1;
+	MSweetRoleData						BasicData			= 2;
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+}
+
+message RPC_L2G_PlayGameFromGm_InputResult_Sweets
+{
+	int64								RoleId				= 1;
+	MSweetRoleData						BasicData			= 2;
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	string 								GmMesh				= 5;
+}
+
+message RPC_G2L_PlayGame_Sweets
+{
+	int64									RoleId			= 1;
+	MSweetRoleData 							BasicData 		= 2;		//玩家基础数据
+	MGameRoleIncome							BasicIncome		= 3;		//基础收入
+	G2C_Slots_1_PlayGame					BasicMsg 		= 4;		//游戏基础消息
+	int32 									Bet				= 5;		//游戏底注
+}
+
+service RPC_GameService_Sweets
+{
+	rpc LoginGame(RPC_L2G_LoginGame_Sweets) 										returns(RPC_G2L_LoginGame_Sweets) {}
+	rpc QuitGame(RPC_L2G_QuitGame_Sweets) 										returns(RPC_G2L_QuitGame_Sweets) {}
+	rpc PlayGame(RPC_L2G_PlayGame_Sweets) 										returns(RPC_G2L_PlayGame_Sweets) {}
+	rpc ChooseFreeSpin(RPC_L2G_ChooseFreeSpin_Sweets)								returns(RPC_G2L_ChooseFreeSpin_Sweets) {}
+	rpc PlayGameFromGM_ChooseResult(RPC_L2G_PlayGameFromGm_ChooseResult_Sweets) 	returns(RPC_G2L_PlayGame_Sweets) {}
+	rpc PlayGameFromGM_InputResult(RPC_L2G_PlayGameFromGm_InputResult_Sweets) 	returns(RPC_G2L_PlayGame_Sweets) {}
+}
+/////////////////////////////////////////////////////////////////////Jalapeno////////////////////////////////////////////////////////////////////////////
+message RPC_L2G_LoginGame_Jalapeno
+{
+	int64 RoleId = 1;
+	MJalapenoRoleData	BasicData	= 2;
+}
+message RPC_G2L_LoginGame_Jalapeno
+{
+	int64 			RoleId 		= 1;
+	G2C_Login_Jalapeno BasicMsg 	= 2;
+}
+message RPC_L2G_QuitGame_Jalapeno
+{
+	int64 RoleId = 1;
+}
+message RPC_G2L_QuitGame_Jalapeno
+{
+	int64 RoleId = 1;
+}
+message RPC_L2G_PlayGame_Jalapeno
+{
+	int64								RoleId				= 1;
+	MJalapenoRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3; //下注
+	int32 								Multiple			= 4; //倍数
+	
+	int64 								RoleGold			= 5; //玩家带来的钱
+}
+
+message RPC_L2G_PlayGameFromGm_ChooseResult_Jalapeno
+{
+	int64								RoleId				= 1;
+	MJalapenoRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+}
+
+message RPC_L2G_PlayGameFromGm_InputResult_Jalapeno
+{
+	int64								RoleId				= 1;
+	MJalapenoRoleData						BasicData			= 2;
+	
+	int32 								Bet					= 3;
+	int32 								Multiple			= 4;
+	
+	string 								GmMesh				= 5;
+}
+
+message RPC_G2L_PlayGame_Jalapeno
+{
+	int64									RoleId			= 1;
+	MJalapenoRoleData 							BasicData 		= 2;		//玩家基础数据
+	MGameRoleIncome							BasicIncome		= 3;		//基础收入
+	G2C_Slots_1_PlayGame					BasicMsg 		= 4;		//游戏基础消息	
+	int32 									Bet				= 5;		//游戏底注
+
+}
+
+service RPC_GameService_Jalapeno
+{
+	rpc LoginGame(RPC_L2G_LoginGame_Jalapeno) 										returns(RPC_G2L_LoginGame_Jalapeno) 	{}
+	rpc QuitGame(RPC_L2G_QuitGame_Jalapeno) 										returns(RPC_G2L_QuitGame_Jalapeno) 	{}
+	rpc PlayGame(RPC_L2G_PlayGame_Jalapeno) 										returns(RPC_G2L_PlayGame_Jalapeno) 	{}
+	rpc PlayGameFromGM_ChooseResult(RPC_L2G_PlayGameFromGm_ChooseResult_Jalapeno) 	returns(RPC_G2L_PlayGame_Jalapeno) 	{}
+	rpc PlayGameFromGM_InputResult(RPC_L2G_PlayGameFromGm_InputResult_Jalapeno) 	returns(RPC_G2L_PlayGame_Jalapeno) 	{}
+}

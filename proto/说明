@@ -1,0 +1,4 @@
+protoc  --go_out="../Msg" --plugin=grpc:.  ./*.proto
+protoc --go_out=plugins=grpc:. *.proto
+
+proto 文件 option go_package = "gameMsg"; => option go_package = "./gameMsg";

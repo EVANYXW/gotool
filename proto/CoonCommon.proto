@@ -1,0 +1,27 @@
+syntax = "proto3";
+option go_package = "./Msg;Msg";
+
+message IslandQuestMsg
+{
+	uint32 QuestGroup		= 1;
+	uint32 QuestSequence		= 2;
+	uint32 GameID				= 3;
+	uint32 QuestID				= 4;
+	uint32 QuestType			= 5;
+	int64  QuestNum				= 6;
+	uint32 NumType				= 7;
+	uint32 NumMultiply			= 8;
+	uint32 Items_ID_1			= 9;
+	int64  Items_Amount_1		= 10;
+	uint32 Items_Multiply_1		= 11;
+	uint32 Status				= 12;
+	uint64 Quest_Value			= 13;
+	uint32 Is_UnLock			= 14;
+}
+
+
+message Coon_Game_List{
+	uint32 GameID = 1;
+	uint32 QuestNum = 2;
+	uint32 QuestSequence = 3;
+}

@@ -1,0 +1,333 @@
+syntax = "proto3";
+import "Common.proto";
+option go_package = "./Msg;Msg";
+
+message Role_Axis_Item{
+	uint32 RoleID = 1;
+	uint32 Pos_X = 2;
+	uint32 Pos_Y = 3;
+}
+
+
+message Player_Building_Data_Item{
+	string Stage_ID = 1;
+	uint32 BuildingID = 2;
+	uint32 BuildingStep = 3;
+	uint32 EndedEventIdex = 4;
+	uint32 MissionType = 5;
+}
+
+
+message HistoryCity
+{
+	string Stage_ID = 1;
+	repeated uint32 BuildModes = 2;
+
+}
+
+
+message Player_Building_Data
+{
+	repeated Player_Building_Data_Item BuildData = 1;
+	string Stage_ID = 2;
+	uint32 Cloud_Unlocked = 3;
+	repeated Role_Axis_Item  RoleAxis = 4;
+	uint32 CoonCoin = 5;
+	uint32 CoonLevel = 6;
+	uint64 Decorativeness_Exp = 7; // 装饰度经验
+	string CoonName = 8;
+	repeated HistoryCity Citys  = 9;
+	repeated string	 StageList = 10; 
+}
+
+message CoonStageItem
+{
+	uint32 ItemType = 1;
+	int64  ItemNum = 2;
+	double Mult = 3; // 倍率
+}
+
+message C2L_LoginCoon
+{}
+
+message L2C_LoginCoon
+{
+	 bool Created = 1;
+	 int32 Pos_X = 2;
+     int32 Pos_Y = 3;
+	 int32 NoviceGuidanceStep = 4;//新手指南步数
+}
+
+message C2L_CreateCoonRole
+{
+	 string Name = 1;
+}
+
+message L2C_CreateCoonRole
+{
+	 ErrorCode Code = 1;
+}
+
+message C2L_JoinCoon
+{
+	uint32 opt = 1;        //扩展
+}
+
+message C2L_Novice_Guidance
+{
+	uint32 Step = 1;
+}
+
+
+message L2C_JoinCoon
+{
+	 uint32      opt = 1;
+     Player_Building_Data   basedata = 2;         //玩家身上的浣熊岛数据
+}
+
+//领取任务
+message C2L_TakeQuest
+{
+	repeated uint32 QuestIds = 1; 
+
+}
+
+message L2C_TakeQuest
+{
+	 ErrorCode Code = 1;
+	repeated int64 QuestIds = 2;
+}
+
+message CoonRewardData
+{
+	 uint32 ItemId = 1;
+	 uint32 Num = 2;
+	 uint32 Multiply = 3;
+}
+
+message L2C_SyncCoonResource
+{
+	 int64   CoonCoin 	= 1; 	//浣熊币
+	 int64   CoonLevel 	= 2; 	//浣熊等级
+	 int64   Decorativeness_Exp        = 3;         //浣熊装饰度
+	 uint32  TotalStage = 4;	//stage总数
+	 uint32  PassConsumeCoins = 5;//花费的Coin
+	 repeated CoonRewardData Rewards = 6; //奖励
+	 int64   CoonExp        = 7;         //浣熊经验值
+}
+
+
+message IslandQuestRewardsStruct
+{
+	uint32  QuestGroup = 1; // 轮
+	uint32  QuestSequence = 2; //机台顺序
+	repeated CoonRewardData Rewards = 3;
+	uint32	GameId = 4; //GameId
+	uint32  RewardStatus = 5; //领奖状态,0-不可领取，1-可领取，2-已领取
+}
+
+message C2L_Quest_Rewards 
+{
+
+}
+
+message L2C_Quest_Rewards
+{
+	uint32   RoleLevel = 1; // 角色等级
+	uint32	Status = 2; //领奖状态 0-不可领取 1-可领取
+	uint32  QuestSequence = 3; //角色当前机台顺序
+	uint32  QuestGroup = 4; //角色当前机台组别
+	repeated IslandQuestRewardsStruct RewardConfigs = 5; // 奖励数据
+}
+
+
+message C2L_UpdateCoonBuild
+{
+	uint32 							opt = 1; //扩展
+	uint32							key = 2;  
+	repeated int32 				values = 3; 
+}
+
+message L2C_UpdateCoonBuild
+{
+	uint32 							opt = 1; //扩展
+	uint32							key = 2; 
+	uint32							res = 3; //0-成功  1-失败
+}
+
+
+message ADMission
+{
+	uint32 buildId = 1; //建筑id
+	uint32 target = 2; //目标值
+	uint32 progress = 3; //进度
+	int64  expiration_time = 4;//到期时间
+};
+
+message CoonPackItem
+{
+	uint32	item_id = 1;	//道具id
+	uint32  type = 2;		//道具类型:1-普通道具;2-装饰物道具对应Object_List表
+	uint32  num = 3;		//数量
+	uint32  status = 4;     //状态:普通道具：0，装饰物-0未获得该物件(服务器不考虑)，1-已获得该物件（经验值已加），但未使用, 2-已使用该物件(已解锁)
+}
+
+message ShopLimitItem
+{
+	uint32 order_id = 1;	//配置表order
+	uint32 item_id =2;		//道具id
+	uint32 bought_num = 3;	//购买次数
+	uint32 endtime = 4;		//刷新的时间戳
+}
+
+message ObjectItem
+{
+	uint32 objectId = 1;//object_id
+	uint32 status = 2;//状态:普通道具：0，装饰物-0未获得该物件(服务器不考虑)，1-已获得该物件（经验值已加），但未使用, 2-已使用该物件(已解锁)
+}
+
+//刷新浣熊常驻广告数据
+message C2L_UpdateCoonAdsData
+{
+  uint32                            opt = 1;                         //0：读取浣熊广告数据  1：更新浣熊广告数据
+  uint32                                                                                                                 BuildingID = 2;        //当前浣熊广告ID
+}
+
+//刷新浣熊常驻广告数据
+message L2C_UpdateCoonAdsData
+{
+  uint32                            opt = 1;                         //返回0
+  uint32                                                                                                                 BuildingID = 2;        //当前浣熊广告ID
+}
+
+//切换关卡
+message L2C_Switch_Stage
+{
+	repeated Player_Building_Data_Item		BuildData = 1; //正在建设中的数据
+	string									Stage_ID = 2; //关卡号
+}
+
+message L2C_UpdateCoonPrize
+{
+	uint32							opt = 1; // 扩展
+	uint32							CoonLevel = 2; //浣熊等级（最新）
+	uint64                          Decorativeness_Exp = 3; //经验(最新总值)
+	repeated	Coom_Award_Item		StagePrize = 4; //Stage_Prize奖励
+	uint32							Stage = 5; //Stage_Prize奖励ID号
+	repeated	Coom_Award_Item		LevelPrize = 6; //升级奖励
+	uint32							BuildingID = 7; //任务建设ID号
+	repeated	Coom_Award_Item		AdsPrize = 8; //广告奖励
+	string							Stage_ID = 9;//	Stage_ID客户端使用
+}
+
+message C2L_GetCoonPrize
+{
+	uint32							opt = 1; // 扩展
+	uint32							BuildingID = 2; // 任务建设ID号
+	uint32							type = 3; // 1 stageprize领取    2 升级奖励领取 3 广告奖励领取
+	uint32							typeId = 4; // 类型ID,当stageprize领取时该值为Stage 当是升级奖励领取时该值 传的是等级
+}
+
+message C2L_UnlockObject
+{
+	uint32							ObjectID = 1; //物件唯一ID
+}
+
+message L2C_UnlockObject
+{
+	uint32							ObjectID = 1; //物件唯一ID
+	uint32							BuildID = 2; //建造ID
+	uint32							res	= 3; //0成功  1失败
+}
+
+message L2C_UnlockObjectList
+{
+	repeated ObjectItem					List = 1; //列表
+}
+
+//购买道具
+message C2L_CoonBuyItems
+{
+	uint32							order_id = 1;//配置表order
+	uint32							item_id = 2;//道具id
+	uint32							num = 3;//购买数量
+	int32							opt = 4;//扩展
+}
+
+message L2C_CoonBuyItems
+{
+	uint32							opt = 1;//扩展
+	uint32							res = 2;//0成功  1失败
+	uint32							order_id = 3;//配置表order
+	uint32							item_id = 4;//道具id
+}
+
+//完成Quest任务
+message C2L_CoonCompleteQuest
+{
+	uint32							opt = 1;//扩展
+	uint32							type = 2;//0-SKIP道具，1-使用宝石
+	uint32							quest_id = 3;//Quest id
+}
+
+message L2C_CoonCompleteQuest
+{
+	uint32							opt = 1;//扩展
+	uint32							res = 2;//0成功  1失败
+}
+
+message C2L_QuestSpecialBonus
+{
+	uint32							opt = 1;//扩展
+	uint32							game_id = 2;//游戏id
+	int64							bet = 3;//押注
+	int64							score = 4;//分数
+}
+
+message C2L_LobbyCoonData
+{
+
+}
+
+message L2C_LobbyCoonData
+{
+	uint32							login_gift_status		= 1;// 浣熊登入礼状态 0-未领取 1-已经领取
+	uint32							total_building_num		= 2;// 总建造数量
+	uint32							finished_building_num		= 3;// 已建造数量
+	int64							next_stage_prize		= 4; //	下一个stage金币奖励
+}
+
+message C2L_CoonLoginGiftEvent
+{
+	uint32							opt		= 1;//操作:1-通知可领取 2-通知发邮件
+}
+
+message C2L_GetLoginGiftPrize
+{
+
+}
+
+message L2C_CoonSendLoginGiftPrize
+{
+	int64							reward = 1;//金币奖励数量	
+}
+
+message C2L_CoonShopLimitList
+{
+
+}
+
+message L2C_CoonShopLimitList
+{
+	repeated ShopLimitItem			list = 1;//玩家限制商城的道具购买次数
+}
+
+message L2C_CoonRedDot
+{
+	
+}
+
+message C2L_CoonReadRedDot
+{
+
+}

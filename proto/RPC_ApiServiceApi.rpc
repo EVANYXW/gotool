@@ -1,0 +1,79 @@
+syntax = "proto3";
+import "APIDefine.proto";
+
+//返回结果结构
+message RPC_ApiServiceResponse
+{
+	uint32  result_code = 1;			//回传结果代码
+	string 	result_message = 2; 		//回传讯息
+}
+
+//GM玩家资料查询 携带参数结构
+message RPC_W2GM_GetRoleData{
+	uint64 member_id = 1;				//玩家ID
+}
+
+//GM玩家资料查询 返回数据
+message RPC_GM2W_GetRoleData{
+	MRoleData	data = 1;
+	RPC_ApiServiceResponse result = 2;   //返回
+}
+
+
+//GM道具查询 携带参数结构
+message RPC_W2GM_Items{
+	repeated uint32 item_ids = 1; 	//道具id List	
+}
+
+//GM道具查询 返回数据
+message RPC_GM2W_Items{
+	repeated APIItem items = 1;	//服务器返回道具数据
+}
+
+//ApiServiceApi_赠奖
+
+//Item道具化赠奖
+message RPC_W2GM_GiveRewardInputModel
+{
+	string source_id = 1;						//呼叫赠奖的第三方ID(营运活动放：{OPActivityId}_{AwardsLogId}，系统会去拆解「活动ID」跟「赠奖纪录ID」)
+	repeated int64 member_ids = 2;				//玩家MemberID 
+	uint32 send_mode = 3;						//赠奖模式(0:进讯息中心、1:直接派奖)
+	repeated LanguageContent info = 4;			//奖项讯息
+	repeated APIReward rewards = 5;				//奖项
+	uint64	start_date = 6;						//赠奖时间(可带null就好，系统会自己给)
+	uint64	expire_date = 7;					//到期时间
+}
+
+//ApiServiceApi_玩家扣钻石
+
+message RPC_W2GM_DrawDiamondInputJsondata
+{
+	string source_id = 1; //呼叫Api的第三方ID(营运活动放：{OPActivityId}_{AwardsLogId}，系统会去拆解「活动ID」跟「赠奖纪录ID」)
+	uint32 member_id = 2; //玩家ID
+	uint64 diamond = 3;  //钻石数量
+}
+
+
+//ApiServiceApi_玩家扣金币
+
+message RPC_W2GM_DrawPointInputJsondata
+{
+	string source_id = 1; //呼叫Api的第三方ID(营运活动放：{OPActivityId}_{AwardsLogId}，系统会去拆解「活动ID」跟「赠奖纪录ID」)
+	uint32 member_id = 2; //玩家ID
+	uint64 point = 3;  	 //金币数量
+}
+
+
+/*
+service RPC_API_Service
+{
+	//玩家资料查询
+	rpc GetRoleData(RPC_W2GM_GetRoleData) returns(RPC_GM2W_GetRoleData) {}
+	//赠奖
+	rpc SendReward(RPC_W2GM_GiveRewardInputModel) returns (RPC_ApiServiceResponse) {}
+	//玩家扣钻石
+	rpc DrawDiamond(RPC_W2GM_DrawDiamondInputJsondata) returns (RPC_ApiServiceResponse) {}
+	//玩家扣金币
+	rpc DrawPoint(RPC_W2GM_DrawPointInputJsondata) returns (RPC_ApiServiceResponse) {}
+}
+*/
