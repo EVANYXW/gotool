@@ -1,7 +1,7 @@
 package main
 
 import (
-	"demo/tools/econf"
+	"econf"
 	"fmt"
 )
 
