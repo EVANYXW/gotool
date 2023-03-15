@@ -1,4 +1,4 @@
-module demo/tools/econf
+module econf
 
 go 1.19
 
