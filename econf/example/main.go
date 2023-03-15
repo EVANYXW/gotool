@@ -1,8 +1,8 @@
 package main
 
 import (
-	"econf"
 	"fmt"
+	"github.com/evanyxw/gotool/econf"
 )
 
 func main() {

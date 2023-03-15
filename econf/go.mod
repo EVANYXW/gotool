@@ -1,4 +1,4 @@
-module econf
+module github.com/evanyxw/gotool/econf
 
 go 1.19
 

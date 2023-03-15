@@ -1,4 +1,4 @@
-module demo/tools/myLog
+module github.com/evanyxw/gotool/myLog
 
 go 1.19
 
