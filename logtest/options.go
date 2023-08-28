@@ -1,4 +1,4 @@
-package log
+package logtest
 
 type Options struct {
 	Development  bool

@@ -1,8 +1,9 @@
-package log
+package logtest
 
 import (
 	"context"
 	"fmt"
+	"github.com/evanyxw/gotool/elog"
 	"os"
 	"path/filepath"
 	"strings"
@@ -22,13 +23,13 @@ var (
 
 type Logger struct {
 	*zap.Logger
-	opts      *Options
+	opts      *elog.Options
 	zapConfig zap.Config
 }
 
 func GetInstance() *Logger {
 	once.Do(func() {
-		opt := &Options{
+		opt := &elog.Options{
 			//Development: true,
 			Development:  false,
 			AppName:      "hlog-app",

@@ -15,17 +15,18 @@ import (
 )
 
 const (
-	defaultlogpath           = "../log/test" // 【默认】日志文件路径
-	defaultlogfilename       = "test.log"    // 【默认】日志文件名称
-	defaultloglevel          = "info"        // 【默认】日志打印级别 debug  info  warning  error
-	defaultlogfilemaxsize    = 5             // 【日志分割】  【默认】单个日志文件最多存储量 单位(mb)
-	defaultlogfilemaxbackups = 10            // 【日志分割】  【默认】日志备份文件最多数量
-	logmaxage                = 1000          // 【默认】日志保留时间，单位: 天 (day)
-	logcompress              = false         // 【默认】是否压缩日志
-	logstdout                = false         // 【默认】是否输出到控制台
+	defaultlogpath           = "./log/test" // 【默认】日志文件路径
+	defaultlogfilename       = "test.log"   // 【默认】日志文件名称
+	defaultloglevel          = "info"       // 【默认】日志打印级别 debug  info  warning  error
+	defaultlogfilemaxsize    = 5            // 【日志分割】  【默认】单个日志文件最多存储量 单位(mb)
+	defaultlogfilemaxbackups = 10           // 【日志分割】  【默认】日志备份文件最多数量
+	logmaxage                = 1000         // 【默认】日志保留时间，单位: 天 (day)
+	logcompress              = false        // 【默认】是否压缩日志
+	logstdout                = false        // 【默认】是否输出到控制台
 )
 
-var Logger *zap.SugaredLogger // 定义日志打印全局变量
+type Logger *zap.SugaredLogger // 定义日志打印全局变量
+var LoggerMap = make(map[string]Logger)
 
 var (
 	// kingpin 可以在启动时通过输入参数，来修改日志参数
@@ -40,9 +41,10 @@ var (
 )
 
 // 初始化 logger
-func InitLogger() error {
-	if Logger != nil {
-		return nil
+func InitLogger() (Logger, error) {
+	tagKey := *logpath + *logfilename
+	if logger, ok := LoggerMap[tagKey]; ok {
+		return logger, nil
 	}
 
 	loglevel := map[string]zapcore.Level{
@@ -53,7 +55,7 @@ func InitLogger() error {
 	}
 	writesyncer, err := getlogwriter() // 日志文件配置 文件位置和切割
 	if err != nil {
-		return err
+		return nil, err
 	}
 	encoder := getencoder()       // 获取日志输出编码
 	level, ok := loglevel[*level] // 日志打印级别
@@ -62,8 +64,14 @@ func InitLogger() error {
 	}
 	core := zapcore.NewCore(encoder, writesyncer, level)
 	logger := zap.New(core, zap.AddCaller()) //  zap.addcaller() 输出日志打印文件和行数如： logger/logger_test.go:33
-	Logger = logger.Sugar()
-	return nil
+
+	LoggerMap[tagKey] = logger.Sugar()
+
+	return LoggerMap[tagKey], nil
+}
+
+func GetLogger() {
+
 }
 
 // 编码器(如何写入日志)
